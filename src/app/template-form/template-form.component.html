@@ -2,11 +2,11 @@
   <div class="mb-3">
     <label for="nome" class="form-label">Nome:</label>
     <!-- por meio do ngModel e de um name o angular associa cada campo ao name desse campo -->
-    <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" ngModel>
+    <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" [(ngModel)]="usuario.nome">
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email:</label>
-    <input type="email" class="form-control" id="email" placeholder="usuario@email.com" name="email" ngModel>
+    <input type="email" class="form-control" id="email" placeholder="usuario@email.com" name="email" [(ngModel)]="usuario.email"> <!-- O OBJETO ORIGINAL É ATUALIZADO TBM-->
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
