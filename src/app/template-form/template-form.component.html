@@ -1,11 +1,12 @@
-<form>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)"> <!-- Criando uma variavel local e associando ela ao objeto ngForm--> <!-- por baixo dos panos ele cria um tamplete reativo-->
   <div class="mb-3">
     <label for="nome" class="form-label">Nome:</label>
-    <input type="text" class="form-control" id="nome" placeholder="Nome">
+    <!-- por meio do ngModel e de um name o angular associa cada campo ao name desse campo -->
+    <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" ngModel>
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email:</label>
-    <input type="email" class="form-control" id="email" placeholder="usuario@email.com">
+    <input type="email" class="form-control" id="email" placeholder="usuario@email.com" name="email" ngModel>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
