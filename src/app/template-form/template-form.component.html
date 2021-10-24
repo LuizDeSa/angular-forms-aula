@@ -17,9 +17,6 @@
     <label for="nome" class="form-label">Nome:</label>
     <!-- por meio do ngModel e de um name o angular associa cada campo ao name desse campo -->
     <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" [ngModel]="usuario.nome" required #nome="ngModel">
-    <!-- <div>
-      {{nome.className}}
-    </div> -->
 
     <div *ngIf="!nome.valid && nome.touched" class="alert alert-danger d-flex align-items-center" role="alert">
       <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
@@ -27,14 +24,13 @@
         Nome é um campo obrigatório.
       </div>
     </div>
-    <div >
-
-    </div>
   </div>
 
   <div class="mb-3" >
+
     <label for="email" class="form-label">Email:</label>
     <input type="email" class="form-control" id="email" placeholder="usuario@email.com" name="email" [ngModel]="usuario.email" required email #email="ngModel"> <!-- O OBJETO ORIGINAL NÃO É ATUALIZADO E APENAS INICIALIZA O FORM-->
+
     <div *ngIf="!email.valid && email.touched" class="alert alert-danger d-flex align-items-center" role="alert">
       <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
       <div>
@@ -42,7 +38,8 @@
         <!-- {{email.hasError}} -->
       </div>
     </div>
+
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" [disabled]="!f.valid" >Submit</button>
 </form>
