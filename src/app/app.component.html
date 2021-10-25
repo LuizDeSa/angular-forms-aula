@@ -6,12 +6,33 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a class="nav-link " aria-current="page" routerLinkActive="active" routerLink="/tamplateForm"> Form - Tamplate Driven</a>
-        </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
+          <a class="nav-link " aria-current="page" routerLinkActive="active" routerLink="/templateForm"> Form - template Driven</a>
+        </li> -->
+        <!-- <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" routerLink="/dataForm">Form - Data Driven</a>
-        </li>
+        </li> -->
+        <div class="nav-item dropdown">
+          <a class="btn dropdown-toggle text-decoration-none" [class.btn-primary]="rotaAtiva1.isActive||rotaAtiva2.isActive" routerLinkActive="active" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Form - Template Driven
+          </a>
+
+          <!-- <hr class="hr-dropdown" *ngIf="rotaAtiva1.isActive||rotaAtiva2.isActive"> -->
+
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="nav-link " aria-current="page" routerLinkActive="active" #rotaAtiva2 = "routerLinkActive" routerLink="/templateForm/template1"> Template 1</a></li>
+            <li><a class="nav-link " aria-current="page" routerLinkActive="active" #rotaAtiva1 = "routerLinkActive" routerLink="/templateForm/template2"> Form - Template Driven</a></li>
+          </ul>
+        </div>
+        <div class="nav-item dropdown">
+          <a class="btn dropdown-toggle" [class.btn-primary]="rotaAtiva3.isActive" routerLinkActive="active" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Form - Data Driven
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="nav-link"  aria-current="page" routerLinkActive="active" #rotaAtiva3 = "routerLinkActive" routerLink="/dataForm">Form - Data Driven</a></li>
+          </ul>
+        </div>
       </ul>
     </div>
   </div>

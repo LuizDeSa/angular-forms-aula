@@ -1,0 +1,124 @@
+<form #f="ngForm"  (ngSubmit)="onSubmit(f)" novalidate>
+  <div class="row">
+    <div class="col-md-4" [class.was-validated]="!nome.valid && nome.touched">
+      <label for="nome" class="form-label">Name</label>
+      <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" ngModel  #nome="ngModel" required >
+      <div class="invalid-feedback">
+        Nome é um campo invalido.
+      </div>
+    </div>
+
+    <div class="col-md-5" [class.was-validated]="!sobrenome.valid && sobrenome.touched">
+      <label for="sobrenome" class="form-label">Sobrenome</label>
+      <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome" name="sobrenome" ngModel  #sobrenome="ngModel" required >
+      <div class="invalid-feedback">
+        Sobrenome é um campo invalido.
+      </div>
+    </div>
+
+    <div class="col-md-3" [class.was-validated]="!dt_nasc.valid && dt_nasc.touched">
+      <label for="dt_nasc" class="form-label">Name</label>
+      <input type="date" class="form-control" id="dt_nasc" placeholder="dt_nasc" name="dt_nasc" ngModel  #dt_nasc="ngModel" required >
+      <div class="invalid-feedback">
+        Data é um campo invalido.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <label for="email" class="form-label">Email</label>
+      <div class="input-group has-validation" [class.was-validated]="!email.valid && email.touched">
+        <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
+        <input type="email" class="form-control" id="email" aria-describedby="inputGroupPrepend" placeholder="email@dominio" name="email" ngModel  #email="ngModel" required>
+        <div class="invalid-feedback">
+          Email é um campo invalido.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+
+    <div class="col-md-3" [class.was-validated]="!cep.valid && cep.touched">
+      <label for="cep" class="form-label">CEP</label>
+      <input type="text" class="form-control" id="cep" placeholder="CEP" name="cep" ngModel  #cep="ngModel" required >
+      <div class="invalid-feedback">
+        CEP é um campo invalido.
+      </div>
+    </div>
+
+    <div class="col-md-3" [class.was-validated]="!estado.valid && estado.touched">
+      <label for="estado" class="form-label">Estado</label>
+      <select class="form-select" id="estado" name="estado" ngModel #estado="ngModel" required>
+        <option selected disabled value="">Escolha um estado...</option>
+        <option>MA</option>
+        <option>PA</option>
+        <option>TO</option>
+      </select>
+      <div class="invalid-feedback">
+        Estado é um campo invalido.
+      </div>
+    </div>
+
+    <div class="col-md-4" [class.was-validated]="!cidade.valid && cidade.touched">
+      <label for="cidade" class="form-label">Cidade</label>
+      <input type="text" class="form-control" id="cidade" placeholder="Cidade" name="cidade" ngModel  #cidade="ngModel" required >
+      <div class="invalid-feedback">
+        Cidade é um campo invalido.
+      </div>
+    </div>
+
+    <div class="col-md-2" [class.was-validated]="!numero.valid && numero.touched">
+      <label for="numero" class="form-label">Número</label>
+      <input type="text" class="form-control" id="numero" placeholder="Número" name="numero" ngModel  #numero="ngModel" required >
+      <div class="invalid-feedback">
+        Número é um campo invalido.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-5" [class.was-validated]="!rua.valid && rua.touched">
+      <label for="rua" class="form-label">Rua</label>
+      <input type="text" class="form-control" id="rua" placeholder="Rua" name="rua" ngModel  #rua="ngModel" required >
+      <div class="invalid-feedback">
+        Rua é um campo invalido.
+      </div>
+    </div>
+    <div class="col-md-3" [class.was-validated]="!bairro.valid && bairro.touched">
+      <label for="bairro" class="form-label">Bairro</label>
+      <input type="text" class="form-control" id="bairro" placeholder="bairro" name="bairro" ngModel  #bairro="ngModel" required >
+      <div class="invalid-feedback">
+        Bairro é um campo invalido.
+      </div>
+    </div>
+    <div class="col-md-4" [class.was-validated]="!complemento.valid && complemento.touched">
+      <label for="complemento" class="form-label">Complemento</label>
+      <input type="text" class="form-control" id="complemento" placeholder="Complemento" name="complemento" ngModel  #complemento="ngModel">
+      <!-- <div class="invalid-feedback">
+        Complemento é um campo invalido.
+      </div> -->
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+        <label class="form-check-label" for="invalidCheck">
+          Agree to terms and conditions
+        </label>
+        <div class="invalid-feedback">
+          You must agree before submitting.
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-3">
+      <button class="btn btn-primary" type="submit">Submit form</button>
+      <app-form-debug [form] = "f"></app-form-debug>
+    </div>
+  </div>
+</form>
