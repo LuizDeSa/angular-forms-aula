@@ -5,10 +5,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path: 'templateForm/template2', component: TemplateFormComponent},
   {path: 'templateForm/template1', component: Template1Component},
+  {path: 'templateForm/template2', component: TemplateFormComponent},
   {path: 'dataForm', component: DataFormComponent},
-  {path: '', pathMatch: 'full', redirectTo: 'templateForm' },
+  {path: '', pathMatch: 'full', redirectTo: 'templateForm/template2' },
 ];
 
 @NgModule({

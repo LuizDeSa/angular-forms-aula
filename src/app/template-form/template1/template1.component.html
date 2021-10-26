@@ -1,26 +1,26 @@
-<form #f="ngForm"  (ngSubmit)="onSubmit(f)" novalidate>
+<form #f="ngForm"  (ngSubmit)="onSubmit(f)">
   <div class="row">
-    <div class="col-md-4" [class.was-validated]="!nome.valid && nome.touched">
+    <div class="col-md-4" [ngClass]="aplicarCssErro(nome)">
       <label for="nome" class="form-label">Name</label>
       <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" ngModel  #nome="ngModel" required >
       <div class="invalid-feedback">
-        Nome é um campo invalido.
+        Nome é um campo obrigatório.
       </div>
     </div>
 
-    <div class="col-md-5" [class.was-validated]="!sobrenome.valid && sobrenome.touched">
+    <div class="col-md-5" [ngClass]="aplicarCssErro(sobrenome)">
       <label for="sobrenome" class="form-label">Sobrenome</label>
       <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome" name="sobrenome" ngModel  #sobrenome="ngModel" required >
       <div class="invalid-feedback">
-        Sobrenome é um campo invalido.
+        Sobrenome é um campo obrigatório.
       </div>
     </div>
 
-    <div class="col-md-3" [class.was-validated]="!dt_nasc.valid && dt_nasc.touched">
+    <div class="col-md-3" [ngClass]="aplicarCssErro(dt_nasc)">
       <label for="dt_nasc" class="form-label">Name</label>
       <input type="date" class="form-control" id="dt_nasc" placeholder="dt_nasc" name="dt_nasc" ngModel  #dt_nasc="ngModel" required >
       <div class="invalid-feedback">
-        Data é um campo invalido.
+        Data é um campo obrigatório.
       </div>
     </div>
 
@@ -29,11 +29,11 @@
   <div class="row mt-4">
     <div class="col-md-12">
       <label for="email" class="form-label">Email</label>
-      <div class="input-group has-validation" [class.was-validated]="!email.valid && email.touched">
+      <div class="input-group has-validation" [ngClass]="aplicarCssErro(email)">
         <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-        <input type="email" class="form-control" id="email" aria-describedby="inputGroupPrepend" placeholder="email@dominio" name="email" ngModel  #email="ngModel" required>
+        <input type="email" class="form-control" id="email" aria-describedby="inputGroupPrepend" placeholder="usuario@email.com" name="email" ngModel  #email="ngModel" required>
         <div class="invalid-feedback">
-          Email é um campo invalido.
+          Email é um campo obrigatório.
         </div>
       </div>
     </div>
@@ -41,15 +41,15 @@
 
   <div class="row mt-4">
 
-    <div class="col-md-3" [class.was-validated]="!cep.valid && cep.touched">
+    <div class="col-md-3" [ngClass]="aplicarCssErro(cep)">
       <label for="cep" class="form-label">CEP</label>
       <input type="text" class="form-control" id="cep" placeholder="CEP" name="cep" ngModel  #cep="ngModel" required >
       <div class="invalid-feedback">
-        CEP é um campo invalido.
+        CEP é um campo obrigatório.
       </div>
     </div>
 
-    <div class="col-md-3" [class.was-validated]="!estado.valid && estado.touched">
+    <div class="col-md-3" [ngClass]="aplicarCssErro(estado)">
       <label for="estado" class="form-label">Estado</label>
       <select class="form-select" id="estado" name="estado" ngModel #estado="ngModel" required>
         <option selected disabled value="">Escolha um estado...</option>
@@ -58,56 +58,56 @@
         <option>TO</option>
       </select>
       <div class="invalid-feedback">
-        Estado é um campo invalido.
+        Estado é um campo obrigatório.
       </div>
     </div>
 
-    <div class="col-md-4" [class.was-validated]="!cidade.valid && cidade.touched">
+    <div class="col-md-4" [ngClass]="aplicarCssErro(cidade)">
       <label for="cidade" class="form-label">Cidade</label>
       <input type="text" class="form-control" id="cidade" placeholder="Cidade" name="cidade" ngModel  #cidade="ngModel" required >
       <div class="invalid-feedback">
-        Cidade é um campo invalido.
+        Cidade é um campo obrigatório.
       </div>
     </div>
 
-    <div class="col-md-2" [class.was-validated]="!numero.valid && numero.touched">
+    <div class="col-md-2" [ngClass]="aplicarCssErro(numero)">
       <label for="numero" class="form-label">Número</label>
       <input type="text" class="form-control" id="numero" placeholder="Número" name="numero" ngModel  #numero="ngModel" required >
       <div class="invalid-feedback">
-        Número é um campo invalido.
+        Número é um campo obrigatório.
       </div>
     </div>
 
   </div>
 
   <div class="row mt-4">
-    <div class="col-md-5" [class.was-validated]="!rua.valid && rua.touched">
+    <div class="col-md-5" [ngClass]="aplicarCssErro(rua)">
       <label for="rua" class="form-label">Rua</label>
       <input type="text" class="form-control" id="rua" placeholder="Rua" name="rua" ngModel  #rua="ngModel" required >
       <div class="invalid-feedback">
-        Rua é um campo invalido.
+        Rua é um campo obrigatório.
       </div>
     </div>
-    <div class="col-md-3" [class.was-validated]="!bairro.valid && bairro.touched">
+    <div class="col-md-3" [ngClass]="aplicarCssErro(bairro)">
       <label for="bairro" class="form-label">Bairro</label>
       <input type="text" class="form-control" id="bairro" placeholder="bairro" name="bairro" ngModel  #bairro="ngModel" required >
       <div class="invalid-feedback">
-        Bairro é um campo invalido.
+        Bairro é um campo obrigatório.
       </div>
     </div>
-    <div class="col-md-4" [class.was-validated]="!complemento.valid && complemento.touched">
+    <div class="col-md-4" [ngClass]="aplicarCssErro(complemento)">
       <label for="complemento" class="form-label">Complemento</label>
       <input type="text" class="form-control" id="complemento" placeholder="Complemento" name="complemento" ngModel  #complemento="ngModel">
       <!-- <div class="invalid-feedback">
-        Complemento é um campo invalido.
+        Complemento é um campo obrigatório.
       </div> -->
     </div>
   </div>
 
   <div class="row mt-4">
     <div class="col-12">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+      <div class="form-check" [ngClass]="aplicarCssErro(invalidCheck)">
+        <input class="form-check-input" type="checkbox" value="" id="invalidCheck"  name="invalidCheck" ngModel required #invalidCheck="ngModel">
         <label class="form-check-label" for="invalidCheck">
           Agree to terms and conditions
         </label>
@@ -117,7 +117,7 @@
       </div>
     </div>
     <div class="col-12 mt-3">
-      <button class="btn btn-primary" type="submit">Submit form</button>
+      <button class="btn btn-primary" type="submit" [class.disabled]="f.invalid">Submit form</button>
       <app-form-debug [form] = "f"></app-form-debug>
     </div>
   </div>

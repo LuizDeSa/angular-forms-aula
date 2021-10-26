@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-template1',
@@ -12,9 +13,19 @@ export class Template1Component implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(form: any){
-    console.log(form)
+  onSubmit(form: NgForm){
+    console.log(form);
+  }
 
+  verificarValidTouched(campo: any){
+    return !campo.valid && campo.touched;
+  }
+
+  aplicarCssErro(campo: any){
+
+    return {
+      'was-validated': this.verificarValidTouched(campo) //, outras classes e condições
+    }
   }
 
 }
