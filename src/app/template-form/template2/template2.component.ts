@@ -26,6 +26,20 @@ export class Template2Component implements OnInit {
   onSubmit(form: any){
     console.log(form);
     console.log(this.usuario);
+
+
+    //site https://resttesttest.com/
+    this.http.post('https://httpbin.org/post', JSON.stringify(form.value)).subscribe(
+      dados => {
+        console.log(dados);
+        alert('Dados envidos com sucesso');
+      },
+      error => {
+        alert('Erro ao enviar os dados da aplicação: status:: '+error.status);
+        console.log(error);
+      }
+      );
+
   }
 
   consultarCEP(cep: any, form: NgForm){

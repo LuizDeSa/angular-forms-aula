@@ -44,7 +44,7 @@
 
       <div class="col-md-3" [ngClass]="aplicarCssErro(cep)">
         <label for="cep" class="form-label">CEP</label>
-        <input type="text" class="form-control" id="cep" placeholder="CEP" name="cep" ngModel  #cep="ngModel" required >
+        <input type="text" class="form-control" id="cep" placeholder="CEP" name="cep" ngModel  #cep="ngModel" required (blur)="consultarCEP(cep.value, f)" >
         <div class="invalid-feedback">
           CEP é um campo obrigatório.
         </div>
