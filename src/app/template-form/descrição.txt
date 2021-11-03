@@ -1,0 +1,2 @@
+Formulario orientado a templete
+formulário é criado e configurado no html. angular deduz um FormGroup a partir do HTML

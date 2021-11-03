@@ -1,0 +1,5 @@
+Formulário orientado a dados
+Formulário é criado programaticamente e é sincronizado com o DOM/HTML
+
+É RECOMENDAVEL ESSA FORMA
+
