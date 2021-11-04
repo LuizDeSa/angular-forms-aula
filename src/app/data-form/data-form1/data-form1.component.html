@@ -1,1 +1,36 @@
-<p>data-form1 works!</p>
+<form [formGroup]="formulario">
+  <div class="row">
+    <div class="col-md-4">
+      <label for="nome" class="form-label">Name</label>
+      <input type="text" class="form-control" id="nome" placeholder="Nome" formControlName="nome" required >
+    </div>
+
+    <div class="col-md-5">
+      <label for="sobrenome" class="form-label">Sobrenome</label>
+      <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome" formControlName="sobrenome" required >
+    </div>
+
+    <div class="col-md-3">
+      <label for="dt_nasc" class="form-label">Data de Nascimento</label>
+      <input type="date" class="form-control" id="dt_nasc" formControlName="data_nascimento" required >
+    </div>
+
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <label for="email" class="form-label">Email</label>
+      <div class="input-group has-validation">
+        <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
+        <input type="email" class="form-control" id="email" aria-describedby="inputGroupPrepend" placeholder="usuario@email.com" formControlName="email" required>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 mt-3">
+      <button class="btn btn-primary" type="submit" (click)="imprimir()" >Submit form</button>
+      <app-form-debug [form] = "formulario"></app-form-debug>
+    </div>
+  </div>
+
+</form>

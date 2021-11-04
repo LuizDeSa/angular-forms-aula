@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -21,9 +21,18 @@ export class DataForm1Component implements OnInit {
 
     this.formulario = this.formBuilder.group({
       nome: [null],
+      sobrenome: [null],
+      data_nascimento: [null],
       email: [null],
     });
 
   }
+
+  imprimir(){
+    console.log(this.formulario)
+  }
+
+
+
 
 }
