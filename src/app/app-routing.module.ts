@@ -9,8 +9,8 @@ import { Template1Component } from './template-form/template1/template1.componen
 const routes: Routes = [
   {path: 'templateForm/template1', component: Template1Component},
   {path: 'templateForm/template2', component: Template2Component},
-  {path: 'dataForm', component: DataForm1Component},
-  {path: '', pathMatch: 'full', redirectTo: 'templateForm/template2' },
+  {path: 'dataForm/data-form1', component: DataForm1Component},
+  {path: '', pathMatch: 'full', redirectTo: 'dataForm/data-form1' },
 ];
 
 @NgModule({
