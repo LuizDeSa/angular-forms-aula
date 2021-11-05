@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { JsonPipe } from '@angular/common';
+import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 
 
@@ -25,10 +26,10 @@ export class DataForm1Component implements OnInit {
     // });
 
     this.formulario = this.formBuilder.group({
-      nome: [null],
-      sobrenome: [null],
-      data_nascimento: [null],
-      email: [null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      sobrenome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
+      data_nascimento: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(40)]],
     });
 
   }
@@ -40,17 +41,25 @@ export class DataForm1Component implements OnInit {
   onSubmit(): void{
     console.log(this.formulario);
     //site https://resttesttest.com/
-    this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value)).subscribe(
+    this.http.post<HttpResponse<string>>('https://httpbin.org/post', JSON.stringify(this.formulario.value)).subscribe(
       dados => {
-        console.log(dados)
+        console.log(dados);
+
         alert('Dados envidos com sucesso');
+
+        // this.resetar();
+
       },
-      error => {
+      (error: any) => {
         alert('Erro ao enviar os dados da aplicação: status:: '+error.status);
         console.log(error);
-      }
+      },
     );
 
+  }
+
+  resetar(): void{
+    this.formulario.reset();
   }
 
 
