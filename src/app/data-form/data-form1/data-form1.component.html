@@ -1,32 +1,49 @@
 <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="col-md-4">
-      <label for="nome" class="form-label">Name</label>
-      <input type="text" class="form-control" id="nome" placeholder="Nome" formControlName="nome" >
+      <label for="nome" class="form-label">Nome</label>
+      <input type="text" class="form-control" [ngClass]="aplicarCssErro('nome')" id="nome" placeholder="Nome" formControlName="nome">
+
+      <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('nome')" mensagem="Nome é um campo obrigatório."></app-error-invalid-feedback>
+      <app-error-invalid-feedback [mostrarErro]="verificarErroMinLength('nome')" mensagem="Nome deve ter 3 ou mais caracter"></app-error-invalid-feedback>
+      <app-error-invalid-feedback [mostrarErro]="verificarErroMaxLength('nome')" mensagem="Nome deve ter 20 ou menos caracter"></app-error-invalid-feedback>
     </div>
 
     <div class="col-md-5">
       <label for="sobrenome" class="form-label">Sobrenome</label>
-      <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome" formControlName="sobrenome" >
+      <input type="text" class="form-control" [ngClass]="aplicarCssErro('sobrenome')" id="sobrenome" placeholder="Sobrenome" formControlName="sobrenome" >
+      <!-- <div class="invalid-feedback">
+        Sobrenome é um campo obrigatório.
+      </div> -->
+      <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('sobrenome')" mensagem="Sobrenome é um campo obrigatório."></app-error-invalid-feedback>
+      <app-error-invalid-feedback [mostrarErro]="verificarErroMinLength('sobrenome')" mensagem="Sobrenome deve ter 3 ou mais caracter"></app-error-invalid-feedback>
+      <app-error-invalid-feedback [mostrarErro]="verificarErroMaxLength('sobrenome')" mensagem="Sobrenome deve ter 40 ou menos caracter"></app-error-invalid-feedback>
     </div>
 
     <div class="col-md-3">
       <label for="dt_nasc" class="form-label">Data de Nascimento</label>
       <input type="date" class="form-control" id="dt_nasc" formControlName="data_nascimento" >
+      <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('data_nascimento')" mensagem="Data de nascimento é um campo obrigatório."></app-error-invalid-feedback>
     </div>
 
   </div>
 
-  <div class="row mt-4">
-    <div class="col-md-12">
+  <!-- <div class="row mt-4"> -->
+    <div class="col-md-12 mt-4">
       <label for="email" class="form-label">Email</label>
-      <div class="input-group has-validation">
+      <div class="input-group ">
         <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-        <input type="email" class="form-control" id="email" aria-describedby="inputGroupPrepend" placeholder="usuario@email.com" formControlName="email">
+        <input type="email" class="form-control w-100" [ngClass]="aplicarCssErro('email')" id="email" placeholder="usuario@email.com" formControlName="email">
+        <!-- <div class="invalid-tooltip">
+          Please choose a unique and valid username.
+        </div> -->
+
+        <app-error-invalid-tooltip class="position-relative w-100 mt-1" [mostrarErro]="verificarErroCampoObrigatorio('email')" mensagem="Email é um campo obrigatório."></app-error-invalid-tooltip>
+
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
+  <!-- </div> -->
+  <div class="row mt-5">
     <div class="col-12 mt-3">
       <button class="btn btn-primary" type="submit">Submit form</button>
       <button class=" ms-3 btn btn-secondary" type="button" (click)="resetar()">Cancelar</button>

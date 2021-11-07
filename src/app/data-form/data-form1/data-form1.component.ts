@@ -62,7 +62,33 @@ export class DataForm1Component implements OnInit {
     this.formulario.reset();
   }
 
+  aplicarCssErro(campo: string){
+    // console.log(this.verificarValidTouched(campo))
+    // this.aplicarMensagemErroCampoObrigatorio(campo);
+    return {
+      'is-invalid': this.verificarValidTouched(campo) //, outras classes e condições
+    }
+  }
 
+
+  verificarValidTouched(campo: string){
+    return this.formulario.get(campo)?.invalid && this.formulario.get(campo)?.touched;
+  }
+
+  verificarErroCampoObrigatorio(campo: string): boolean{
+    let campo1 = this.formulario.get(campo);
+    return this.verificarValidTouched(campo) && campo1?.getError('required');
+  }
+
+  verificarErroMinLength(campo: string){
+    let campo1 = this.formulario.get(campo);
+    return campo1?.getError('minlength');
+  }
+
+  verificarErroMaxLength(campo: string){
+    let campo1 = this.formulario.get(campo);
+    return campo1?.getError('maxlength');
+  }
 
 
 }

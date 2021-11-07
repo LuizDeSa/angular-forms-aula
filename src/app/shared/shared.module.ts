@@ -1,14 +1,24 @@
 import { FormDebugComponent } from './form-debug/form-debug.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ErrorInvalidFeedbackComponent } from './error-invalid-feedback/error-invalid-feedback.component';
+import { ErrorInvalidTooltipComponent } from './error-invalid-tooltip/error-invalid-tooltip.component';
 
 
 
 @NgModule({
-  declarations: [FormDebugComponent],
+  declarations: [
+    FormDebugComponent,
+    ErrorInvalidFeedbackComponent,
+    ErrorInvalidTooltipComponent,
+  ],
   imports: [
     CommonModule
   ],
-  exports: [FormDebugComponent]
+  exports: [
+    FormDebugComponent,
+    ErrorInvalidFeedbackComponent,
+    ErrorInvalidTooltipComponent
+  ]
 })
 export class SharedModule { }

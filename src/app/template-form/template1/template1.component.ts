@@ -29,6 +29,7 @@ export class Template1Component implements OnInit {
       dados => {
         console.log(dados);
         alert('Dados envidos com sucesso');
+        form.form.reset();
       },
       error => {
         alert('Erro ao enviar os dados da aplicação: status:: '+error.status);
