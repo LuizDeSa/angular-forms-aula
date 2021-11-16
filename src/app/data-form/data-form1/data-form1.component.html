@@ -12,9 +12,7 @@
     <div class="col-md-5">
       <label for="sobrenome" class="form-label">Sobrenome</label>
       <input type="text" class="form-control" [ngClass]="aplicarCssErro('sobrenome')" id="sobrenome" placeholder="Sobrenome" formControlName="sobrenome" >
-      <!-- <div class="invalid-feedback">
-        Sobrenome é um campo obrigatório.
-      </div> -->
+
       <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('sobrenome')" mensagem="Sobrenome é um campo obrigatório."></app-error-invalid-feedback>
       <app-error-invalid-feedback [mostrarErro]="verificarErroMinLength('sobrenome')" mensagem="Sobrenome deve ter 3 ou mais caracter"></app-error-invalid-feedback>
       <app-error-invalid-feedback [mostrarErro]="verificarErroMaxLength('sobrenome')" mensagem="Sobrenome deve ter 40 ou menos caracter"></app-error-invalid-feedback>
@@ -22,27 +20,72 @@
 
     <div class="col-md-3">
       <label for="dt_nasc" class="form-label">Data de Nascimento</label>
-      <input type="date" class="form-control" id="dt_nasc" formControlName="data_nascimento" >
+      <input type="date" class="form-control" [ngClass]="aplicarCssErro('data_nascimento')" id="dt_nasc" formControlName="data_nascimento" >
       <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('data_nascimento')" mensagem="Data de nascimento é um campo obrigatório."></app-error-invalid-feedback>
     </div>
-
   </div>
 
-  <!-- <div class="row mt-4"> -->
-    <div class="col-md-12 mt-4">
-      <label for="email" class="form-label">Email</label>
-      <div class="input-group ">
-        <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-        <input type="email" class="form-control w-100" [ngClass]="aplicarCssErro('email')" id="email" placeholder="usuario@email.com" formControlName="email">
-        <!-- <div class="invalid-tooltip">
-          Please choose a unique and valid username.
-        </div> -->
+  <div class="col-md-12 mt-4">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control w-100" [ngClass]="aplicarCssErro('email')" id="email" placeholder="usuario@email.com" formControlName="email">
+    <app-error-invalid-tooltip class="w-100"  [mostrarErro]="verificarErroCampoObrigatorio('email')" mensagem="Email é um campo obrigatório."></app-error-invalid-tooltip>
+  </div>
 
-        <app-error-invalid-tooltip class="position-relative w-100 mt-1" [mostrarErro]="verificarErroCampoObrigatorio('email')" mensagem="Email é um campo obrigatório."></app-error-invalid-tooltip>
+  <div>
+    <div class="row mt-4">
+
+      <div class="col-md-3">
+        <label for="cep" class="form-label">CEP</label>
+        <input type="text" class="form-control" [ngClass]="aplicarCssErro('cep')" id="cep" formControlName="cep" >
+        <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('cep')" mensagem="CEP é um campo obrigatório."></app-error-invalid-feedback>
+        <!-- <app-error-invalid-tooltip class="w-100"  [mostrarErro]="verificarErroCampoObrigatorio('cep')" mensagem="Email é um campo obrigatório."></app-error-invalid-tooltip> -->
 
       </div>
+
+      <div class="col-md-3">
+        <label for="estado" class="form-label">Estado</label>
+        <select class="form-select" [ngClass]="aplicarCssErro('estado')" id="estado" formControlName="estado">
+          <option selected disabled value="">Escolha um estado...</option>
+          <option>MA</option>
+          <option>PA</option>
+          <option>TO</option>
+        </select>
+        <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('estado')" mensagem="Estado é um campo obrigatório."></app-error-invalid-feedback>
+      </div>
+
+      <div class="col-md-4">
+        <label for="cidade" class="form-label">Cidade</label>
+        <input type="text" class="form-control" [ngClass]="aplicarCssErro('cidade')" id="cidade" placeholder="Cidade" formControlName="cidade">
+        <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('cidade')" mensagem="Cidade é um campo obrigatório."></app-error-invalid-feedback>
+      </div>
+
+      <div class="col-md-2" >
+        <label for="numero" class="form-label">Número</label>
+        <input type="text" class="form-control" [ngClass]="aplicarCssErro('numero')" id="numero" placeholder="Número" formControlName="numero">
+        <app-error-invalid-tooltip class="w-100"  [mostrarErro]="verificarErroCampoObrigatorio('numero')" mensagem="Numero é um campo obrigatório."></app-error-invalid-tooltip>
+      </div>
+
     </div>
-  <!-- </div> -->
+
+    <div class="row mt-4">
+      <div class="col-md-5">
+        <label for="rua" class="form-label">Rua</label>
+        <input type="text" class="form-control"  [ngClass]="aplicarCssErro('rua')" id="rua" placeholder="Rua" formControlName="rua">
+        <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('rua')" mensagem="Rua é um campo obrigatório."></app-error-invalid-feedback>
+      </div>
+      <div class="col-md-3">
+        <label for="bairro" class="form-label">Bairro</label>
+        <input type="text" class="form-control" [ngClass]="aplicarCssErro('bairro')" id="bairro" placeholder="bairro" formControlName="bairro">
+        <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('bairro')" mensagem="Bairro é um campo obrigatório."></app-error-invalid-feedback>
+      </div>
+      <div class="col-md-4">
+        <label for="complemento" class="form-label">Complemento</label>
+        <input type="text" class="form-control" id="complemento" placeholder="Complemento" formControlName="complemento">
+      </div>
+    </div>
+  </div>
+
+
   <div class="row mt-5">
     <div class="col-12 mt-3">
       <button class="btn btn-primary" type="submit">Submit form</button>

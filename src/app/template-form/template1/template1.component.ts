@@ -76,20 +76,8 @@ export class Template1Component implements OnInit {
 
  popularDadosForm(dados: any, form: NgForm){
   console.log(dados);
-  // form.setValue({// atualiza todas os valores
-  //   nome: form.value.nome,
-  //   email: form.value.email,
-  //   endereco: {
-  //       cep: dados.cep ,
-  //       numero: "" ,
-  //       complemento: dados.complemento,
-  //       rua: dados.logradouro,
-  //       bairro: dados.bairro,
-  //       cidade: dados.localidade,
-  //       estado: dados.uf
-  //   }
-  // });
   if (!("erro" in dados)) {
+    console.log(dados);
     form.form.patchValue({//atualiza apaenas os arquivos que queremos
       endereco: {
         cep: dados.cep ,

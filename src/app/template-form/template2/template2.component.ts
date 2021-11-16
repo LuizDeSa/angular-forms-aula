@@ -1,8 +1,6 @@
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
-// import {} from 'rxjs/add/operator/map';
-
 
 @Component({
   selector: 'app-template-form',
@@ -26,7 +24,6 @@ export class Template2Component implements OnInit {
   onSubmit(form: any){
     console.log(form);
     console.log(this.usuario);
-
 
     //site https://resttesttest.com/
     this.http.post('https://httpbin.org/post', JSON.stringify(form.value)).subscribe(
@@ -69,19 +66,6 @@ export class Template2Component implements OnInit {
 
   popularDadosForm(dados: any, form: NgForm){
     console.log(dados);
-    // form.setValue({// atualiza todas os valores
-    //   nome: form.value.nome,
-    //   email: form.value.email,
-    //   endereco: {
-    //       cep: dados.cep ,
-    //       numero: "" ,
-    //       complemento: dados.complemento,
-    //       rua: dados.logradouro,
-    //       bairro: dados.bairro,
-    //       cidade: dados.localidade,
-    //       estado: dados.uf
-    //   }
-    // });
     if (!("erro" in dados)) {
       form.form.patchValue({//atualiza apaenas os arquivos que queremos
         endereco: {
@@ -98,7 +82,6 @@ export class Template2Component implements OnInit {
       this.limparDadosEnderecoForm(form);
       alert("CEP não encontrado.");
     }
-
   }
 
   limparDadosEnderecoForm(form: NgForm){
