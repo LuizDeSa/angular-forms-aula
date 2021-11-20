@@ -30,13 +30,15 @@ export class DataForm1Component implements OnInit {
       sobrenome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
       data_nascimento: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(40)]],
-      cep: [null, [Validators.required]],
-      complemento: [],
-      rua: [null, [Validators.required]],
-      numero: [null, [Validators.required]],
-      bairro: [null, [Validators.required]],
-      cidade: [null, [Validators.required]],
-      estado: [null, [Validators.required]],
+      endereco: this.formBuilder.group({
+        cep: [null, [Validators.required]],
+        complemento: [],
+        rua: [null, [Validators.required]],
+        numero: [null, [Validators.required]],
+        bairro: [null, [Validators.required]],
+        cidade: [null, [Validators.required]],
+        estado: [null, [Validators.required]],
+      })
     });
 
   }
