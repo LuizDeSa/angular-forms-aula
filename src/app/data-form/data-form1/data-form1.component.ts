@@ -96,5 +96,66 @@ export class DataForm1Component implements OnInit {
     return campo1?.getError('maxlength');
   }
 
+  consultarCEP(){
+    //Nova variável "cep" somente com dígitos.
 
+    let cep = this.formulario.get('endereco.cep')?.value;
+
+    cep = cep.replace(/\D/g, '');
+    //Verifica se campo cep possui valor informado.
+    if (cep != "") {
+      //Expressão regular para validar o CEP.
+      var validacep = /^[0-9]{8}$/;
+      //Valida o formato do CEP.
+      if(validacep.test(cep)) {
+
+        this.limparDadosEnderecoForm();
+
+        this.http.get(`https://viacep.com.br/ws/${cep}/json`).subscribe(resposta => {
+        this.popularDadosForm(resposta);
+
+        });
+      }else{
+        //cep é inválido.
+        this.limparDadosEnderecoForm();
+        alert("Formato de CEP inválido.");
+      }
+    }
+  }
+
+  limparDadosEnderecoForm(){
+    this.formulario.patchValue({//atualiza apaenas os arquivos que queremos
+      endereco: {
+        complemento: null,
+        rua: null,
+        bairro: null,
+        cidade: null,
+        estado: null
+      }
+    });
+
+    this.formulario.get('nome')?.setValue('Luiz');//Só para mostrar que é possivel setar apenas um valor caso seja necessario
+  }
+
+  popularDadosForm(dados: any){
+    console.log(dados);
+    if (!("erro" in dados)) {
+      console.log(dados);
+      this.formulario.patchValue({//atualiza apaenas os arquivos que queremos
+        endereco: {
+          cep: dados.cep ,
+          complemento: dados.complemento,
+          rua: dados.logradouro,
+          bairro: dados.bairro,
+          cidade: dados.localidade,
+          estado: dados.uf
+        }
+      });
+    }else{
+      //CEP não Encontrado.
+      this.limparDadosEnderecoForm();
+      alert("CEP não encontrado.");
+    }
+
+  }
 }
