@@ -1,3 +1,5 @@
+import { EstadosBrService } from './../../shared/services/estadosBr.service';
+import { Estado } from './../../shared/models/estado';
 import { JsonPipe } from '@angular/common';
 import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Component, OnChanges, OnInit } from '@angular/core';
@@ -14,11 +16,19 @@ import { map } from 'rxjs/operators';
 export class DataForm1Component implements OnInit {
 
   formulario!: FormGroup; // variavel que vai representar o formulário que vamos utilizar no componente
+  estados!: Estado[];
 
   constructor(private formBuilder: FormBuilder,
-              private http: HttpClient) { }
+              private http: HttpClient,
+              private estadosBrService: EstadosBrService) { }
 
   ngOnInit(): void {
+
+    this.estadosBrService.getEstadosBr().subscribe(dados => {
+      console.log(dados);
+      this.estados=dados;
+      this.imprimirEstado();
+    });
 
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
@@ -45,6 +55,10 @@ export class DataForm1Component implements OnInit {
 
   imprimir(){
     console.log(this.formulario)
+  }
+
+  imprimirEstado(){
+    console.log(this.estados);
   }
 
   onSubmit(): void{
