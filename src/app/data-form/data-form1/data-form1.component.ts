@@ -1,3 +1,4 @@
+import { ConsultaCepService } from './../../shared/services/consulta-cep.service';
 import { EstadosBrService } from './../../shared/services/estadosBr.service';
 import { Estado } from './../../shared/models/estado';
 import { JsonPipe } from '@angular/common';
@@ -20,7 +21,8 @@ export class DataForm1Component implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpClient,
-              private estadosBrService: EstadosBrService) { }
+              private estadosBrService: EstadosBrService,
+              private consultaCepService: ConsultaCepService) { }
 
   ngOnInit(): void {
 
@@ -128,30 +130,15 @@ export class DataForm1Component implements OnInit {
   }
 
   consultarCEP(){
-    //Nova variável "cep" somente com dígitos.
-
-    let cep = this.formulario.get('endereco.cep')?.value;
-
-    cep = cep.replace(/\D/g, '');
-    //Verifica se campo cep possui valor informado.
-    if (cep != "") {
-      //Expressão regular para validar o CEP.
-      var validacep = /^[0-9]{8}$/;
-      //Valida o formato do CEP.
-      if(validacep.test(cep)) {
-
-        this.limparDadosEnderecoForm();
-
-        this.http.get(`https://viacep.com.br/ws/${cep}/json`).subscribe(resposta => {
-        this.popularDadosForm(resposta);
-
-        });
+    const cep = this.formulario.get('endereco.cep')?.value;
+    this.consultaCepService.consultarCEP(cep).subscribe(dados=>{
+      if(dados){
+        this.popularDadosForm(dados);
       }else{
-        //cep é inválido.
         this.limparDadosEnderecoForm();
         alert("Formato de CEP inválido.");
       }
-    }
+    });
   }
 
   limparDadosEnderecoForm(){

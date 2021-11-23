@@ -24,7 +24,6 @@ import { ErrorInvalidTooltipComponent } from './error-invalid-tooltip/error-inva
     ErrorInvalidTooltipComponent
   ],
   providers:[
-    EstadosBrService
   ]
 })
 export class SharedModule { }
