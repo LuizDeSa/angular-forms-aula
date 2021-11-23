@@ -88,6 +88,8 @@
 
   <div class="row mt-5">
     <div class="col-12 mt-3">
+      <!-- Só é interessante disabilitar caso tenhamos poucos campos e seja intuitivo a necessidade de preencher todos os campos -->
+      <!-- <button class="btn btn-primary" type="submit" [disabled]="formulario.invalid">Submit form</button> -->
       <button class="btn btn-primary" type="submit">Submit form</button>
       <button class=" ms-3 btn btn-secondary" type="button" (click)="resetar()">Cancelar</button>
       <app-form-debug [form] = "formulario"></app-form-debug>

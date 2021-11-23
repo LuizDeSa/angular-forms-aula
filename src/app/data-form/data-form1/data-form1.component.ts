@@ -49,22 +49,39 @@ export class DataForm1Component implements OnInit {
 
   onSubmit(): void{
     console.log(this.formulario);
-    //site https://resttesttest.com/
-    this.http.post<HttpResponse<string>>('https://httpbin.org/post', JSON.stringify(this.formulario.value)).subscribe(
-      dados => {
-        console.log(dados);
 
-        alert('Dados envidos com sucesso');
+    if(this.formulario.valid){
 
-        // this.resetar();
+      //site https://resttesttest.com/
+      this.http.post<HttpResponse<string>>('https://httpbin.org/post', JSON.stringify(this.formulario.value)).subscribe(
+        dados => {
+          console.log(dados);
 
-      },
-      (error: any) => {
-        alert('Erro ao enviar os dados da aplicação: status:: '+error.status);
-        console.log(error);
-      },
-    );
+          alert('Dados envidos com sucesso');
 
+          // this.resetar();
+
+        },
+        (error: any) => {
+          alert('Erro ao enviar os dados da aplicação: status:: '+error.status);
+          console.log(error);
+        },
+      );
+    }else{
+      console.log('Formulário invalido');
+      this.verificarValidacoesForm(this.formulario);
+    }
+  }
+
+  verificarValidacoesForm(formGroup: FormGroup){
+    Object.keys(formGroup.controls).forEach(campo => {
+      console.log(campo);
+      const controle = formGroup.get(campo);
+      controle?.markAsDirty();
+      if(controle instanceof FormGroup){
+        this.verificarValidacoesForm(controle);
+      }
+    });
   }
 
   resetar(): void{
@@ -73,17 +90,17 @@ export class DataForm1Component implements OnInit {
 
   aplicarCssErro(campo: string){
     return {
-      'is-invalid': this.verificarValidTouched(campo) //, outras classes e condições
+      'is-invalid': this.verificarValidAndTouchedOrDirty(campo) //, outras classes e condições
     }
   }
 
-  verificarValidTouched(campo: string){
-    return this.formulario.get(campo)?.invalid && this.formulario.get(campo)?.touched;
+  verificarValidAndTouchedOrDirty(campo: string){
+    return this.formulario.get(campo)?.invalid && (this.formulario.get(campo)?.touched||this.formulario.get(campo)?.dirty);
   }
 
   verificarErroCampoObrigatorio(campo: string): boolean{
     let campo1 = this.formulario.get(campo);
-    return this.verificarValidTouched(campo) && campo1?.getError('required');
+    return this.verificarValidAndTouchedOrDirty(campo) && campo1?.getError('required');
   }
 
   verificarErroMinLength(campo: string){
