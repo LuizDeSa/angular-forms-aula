@@ -25,10 +25,20 @@
     </div>
   </div>
 
-  <div class="col-md-12 mt-4">
-    <label for="email" class="form-label">Email</label>
-    <input type="email" class="form-control w-100" [ngClass]="aplicarCssErro('email')" id="email" placeholder="usuario@email.com" formControlName="email">
-    <app-error-invalid-tooltip class="w-100"  [mostrarErro]="verificarErroCampoObrigatorio('email')" mensagem="Email é um campo obrigatório."></app-error-invalid-tooltip>
+  <div class="mt-4 row">
+    <div class="col-md-8">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control w-100" [ngClass]="aplicarCssErro('email')" id="email" placeholder="usuario@email.com" formControlName="email">
+      <app-error-invalid-tooltip class="w-100"  [mostrarErro]="verificarErroCampoObrigatorio('email')" mensagem="Email é um campo obrigatório."></app-error-invalid-tooltip>
+    </div>
+    <div class="col-md-4">
+      <label for="cargo" class="form-label">Cargo</label>
+      <select class="form-select" [ngClass]="aplicarCssErro('cargo')" id="cargo" formControlName="cargo" [compareWith]="compararCargos">
+          <option selected disabled value="">Escolha um cargo...</option>
+          <option *ngFor="let cargo of cargos | async" [ngValue]="cargo" >{{cargo.desc}}</option> <!-- NgValue -> utilizar objetos-->
+      </select>
+      <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.cargo')" mensagem="Cargo é um campo obrigatório."></app-error-invalid-feedback>
+    </div>
   </div>
 
   <div formGroupName="endereco">
@@ -46,9 +56,7 @@
         <label for="estado" class="form-label">Estado</label>
         <select class="form-select" [ngClass]="aplicarCssErro('endereco.estado')" id="estado" formControlName="estado">
           <option selected disabled value="">Escolha um estado...</option>
-          <option>MA</option>
-          <option>PA</option>
-          <option>TO</option>
+          <option *ngFor="let estado of estados | async" [value]="estado.sigla" >{{estado.nome}}</option> <!-- value -> string e valores simples-->
         </select>
         <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.estado')" mensagem="Estado é um campo obrigatório."></app-error-invalid-feedback>
       </div>
@@ -92,6 +100,7 @@
       <!-- <button class="btn btn-primary" type="submit" [disabled]="formulario.invalid">Submit form</button> -->
       <button class="btn btn-primary" type="submit">Submit form</button>
       <button class=" ms-3 btn btn-secondary" type="button" (click)="resetar()">Cancelar</button>
+      <button class=" ms-3 btn btn-danger" (click)="setarCargo()">Cargo</button>
       <app-form-debug [form] = "formulario"></app-form-debug>
     </div>
   </div>

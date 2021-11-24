@@ -1,3 +1,5 @@
+import { Cargo } from './../../shared/models/cargo';
+import { CargosService } from './../../shared/services/cargos.service';
 import { ConsultaCepService } from './../../shared/services/consulta-cep.service';
 import { EstadosBrService } from './../../shared/services/estadosBr.service';
 import { Estado } from './../../shared/models/estado';
@@ -5,8 +7,7 @@ import { JsonPipe } from '@angular/common';
 import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { map } from 'rxjs/operators';
-
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -17,25 +18,20 @@ import { map } from 'rxjs/operators';
 export class DataForm1Component implements OnInit {
 
   formulario!: FormGroup; // variavel que vai representar o formulário que vamos utilizar no componente
-  estados!: Estado[];
+  // estados!: Estado[];
+  estados!: Observable<Estado[]>;
+  cargos!: Observable<Cargo[]>;
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpClient,
               private estadosBrService: EstadosBrService,
-              private consultaCepService: ConsultaCepService) { }
+              private consultaCepService: ConsultaCepService,
+              private cargosService: CargosService) { }
 
   ngOnInit(): void {
 
-    this.estadosBrService.getEstadosBr().subscribe(dados => {
-      console.log(dados);
-      this.estados=dados;
-      this.imprimirEstado();
-    });
-
-    // this.formulario = new FormGroup({
-    //   nome: new FormControl(null),
-    //   email: new FormControl(null)
-    // });
+    this.estados = this.estadosBrService.getEstadosBr();
+    this.cargos = this.cargosService.getCargos();
 
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
@@ -50,7 +46,8 @@ export class DataForm1Component implements OnInit {
         bairro: [null, [Validators.required]],
         cidade: [null, [Validators.required]],
         estado: [null, [Validators.required]],
-      })
+      }),
+      cargo: [null]
     });
 
   }
@@ -175,5 +172,14 @@ export class DataForm1Component implements OnInit {
       alert("CEP não encontrado.");
     }
 
+  }
+
+  setarCargo(){
+    const cargo = {nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl'} as Cargo;
+    this.formulario.get('cargo')?.setValue(cargo);
+  }
+
+  compararCargos(cargo1: Cargo, cargo2: Cargo){
+    return cargo1 && cargo2 ? (cargo1.nome===cargo2.nome && cargo1.nivel===cargo2.nivel): cargo1 === cargo2;
   }
 }
