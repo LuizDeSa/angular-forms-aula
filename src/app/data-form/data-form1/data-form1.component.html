@@ -1,6 +1,6 @@
 <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
       <label for="nome" class="form-label">Nome</label>
       <input type="text" class="form-control" [ngClass]="aplicarCssErro('nome')" id="nome" placeholder="Nome" formControlName="nome">
 
@@ -18,10 +18,18 @@
       <app-error-invalid-feedback [mostrarErro]="verificarErroMaxLength('sobrenome')" mensagem="Sobrenome deve ter 40 ou menos caracter"></app-error-invalid-feedback>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
       <label for="dt_nasc" class="form-label">Data de Nascimento</label>
       <input type="date" class="form-control" [ngClass]="aplicarCssErro('data_nascimento')" id="dt_nasc" formControlName="data_nascimento" >
       <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('data_nascimento')" mensagem="Data de nascimento é um campo obrigatório."></app-error-invalid-feedback>
+    </div>
+    <div class="col-md-2">
+      <label for="cargo" class="form-label">Cargo</label>
+      <select class="form-select" [ngClass]="aplicarCssErro('cargo')" id="cargo" formControlName="cargo" [compareWith]="compararCargos">
+          <option selected disabled value="">Escolha um cargo...</option>
+          <option *ngFor="let cargo of cargos | async" [ngValue]="cargo" >{{cargo.desc}}</option> <!-- NgValue -> utilizar objetos-->
+      </select>
+      <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.cargo')" mensagem="Cargo é um campo obrigatório."></app-error-invalid-feedback>
     </div>
   </div>
 
@@ -32,12 +40,12 @@
       <app-error-invalid-tooltip class="w-100"  [mostrarErro]="verificarErroCampoObrigatorio('email')" mensagem="Email é um campo obrigatório."></app-error-invalid-tooltip>
     </div>
     <div class="col-md-4">
-      <label for="cargo" class="form-label">Cargo</label>
-      <select class="form-select" [ngClass]="aplicarCssErro('cargo')" id="cargo" formControlName="cargo" [compareWith]="compararCargos">
-          <option selected disabled value="">Escolha um cargo...</option>
-          <option *ngFor="let cargo of cargos | async" [ngValue]="cargo" >{{cargo.desc}}</option> <!-- NgValue -> utilizar objetos-->
+      <label for="tecnologias" class="form-label">Tecnologias</label>
+      <select multiple class="form-select" [ngClass]="aplicarCssErro('tecnologias')" id="tecnologias" formControlName="tecnologias">
+          <option selected disabled value="">Escolha um tecnologias...</option>
+          <option *ngFor="let tecnologia of tecnologias | async" [value]="tecnologia.nome" >{{tecnologia.desc}}</option> <!-- NgValue -> utilizar objetos-->
       </select>
-      <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.cargo')" mensagem="Cargo é um campo obrigatório."></app-error-invalid-feedback>
+      <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.tecnologias')" mensagem="Tecnologia é um campo obrigatório."></app-error-invalid-feedback>
     </div>
   </div>
 
@@ -100,7 +108,8 @@
       <!-- <button class="btn btn-primary" type="submit" [disabled]="formulario.invalid">Submit form</button> -->
       <button class="btn btn-primary" type="submit">Submit form</button>
       <button class=" ms-3 btn btn-secondary" type="button" (click)="resetar()">Cancelar</button>
-      <button class=" ms-3 btn btn-danger" (click)="setarCargo()">Cargo</button>
+      <button class=" ms-3 btn btn-danger" (click)="setarCargo()">Setar cargo</button>
+      <button class=" ms-3 btn btn-dark" (click)="setarTecnologia()">Setar Tecnologia</button>
       <app-form-debug [form] = "formulario"></app-form-debug>
     </div>
   </div>

@@ -1,3 +1,5 @@
+import { Tecnologia } from './../../shared/models/tecnologia';
+import { TecnologiasService } from './../../shared/services/tecnologias.service';
 import { Cargo } from './../../shared/models/cargo';
 import { CargosService } from './../../shared/services/cargos.service';
 import { ConsultaCepService } from './../../shared/services/consulta-cep.service';
@@ -8,7 +10,6 @@ import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-
 
 @Component({
   selector: 'app-data-form1',
@@ -21,17 +22,20 @@ export class DataForm1Component implements OnInit {
   // estados!: Estado[];
   estados!: Observable<Estado[]>;
   cargos!: Observable<Cargo[]>;
+  tecnologias!: Observable<Tecnologia[]>
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpClient,
               private estadosBrService: EstadosBrService,
               private consultaCepService: ConsultaCepService,
-              private cargosService: CargosService) { }
+              private cargosService: CargosService,
+              private tecnologiasService: TecnologiasService) { }
 
   ngOnInit(): void {
 
     this.estados = this.estadosBrService.getEstadosBr();
     this.cargos = this.cargosService.getCargos();
+    this.tecnologias = this.tecnologiasService.getTecnologias();
 
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
@@ -47,7 +51,8 @@ export class DataForm1Component implements OnInit {
         cidade: [null, [Validators.required]],
         estado: [null, [Validators.required]],
       }),
-      cargo: [null]
+      cargo: [null],
+      tecnologias: [null]
     });
 
   }
@@ -179,7 +184,16 @@ export class DataForm1Component implements OnInit {
     this.formulario.get('cargo')?.setValue(cargo);
   }
 
+  setarTecnologia(){
+    const tecnologia = {nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl'} as Tecnologia;
+    this.formulario.get('tecnologias')?.setValue(['java', 'php']);
+  }
+
   compararCargos(cargo1: Cargo, cargo2: Cargo){
     return cargo1 && cargo2 ? (cargo1.nome===cargo2.nome && cargo1.nivel===cargo2.nivel): cargo1 === cargo2;
+  }
+
+  compararTecnologias(tecnologia1: Tecnologia, tecnologia2: Tecnologia){
+    return tecnologia1 && tecnologia1 ? (tecnologia1.nome===tecnologia1.nome && tecnologia1.desc===tecnologia1.desc): tecnologia1 === tecnologia1;
   }
 }
