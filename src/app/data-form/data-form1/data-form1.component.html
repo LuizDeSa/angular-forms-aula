@@ -42,7 +42,7 @@
     <div class="col-md-4">
       <label for="tecnologias" class="form-label">Tecnologias</label>
       <select multiple class="form-select" [ngClass]="aplicarCssErro('tecnologias')" id="tecnologias" formControlName="tecnologias">
-          <option selected disabled value="">Escolha um tecnologias...</option>
+          <option selected disabled value="">Escolha uma tecnologias...</option>
           <option *ngFor="let tecnologia of tecnologias | async" [value]="tecnologia.nome" >{{tecnologia.desc}}</option> <!-- NgValue -> utilizar objetos-->
       </select>
       <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.tecnologias')" mensagem="Tecnologia é um campo obrigatório."></app-error-invalid-feedback>
@@ -97,6 +97,18 @@
       <div class="col-md-4">
         <label for="complemento" class="form-label">Complemento</label>
         <input type="text" class="form-control" id="complemento" placeholder="Complemento" formControlName="complemento">
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-3">
+      <label for="newslatter" class="form-label">Newslatter</label>
+      <div id="newslatter">
+        <div class="form-check form-check-inline" *ngFor="let item of newLatterOp | async">
+          <input class="form-check-input" type="radio" name="newslatter" id="inlineRadio1" [value]="item.valor" formControlName="newslatter">
+          <label class="form-check-label" for="inlineRadio1">{{item.desc}}</label>
+        </div>
       </div>
     </div>
   </div>

@@ -1,4 +1,3 @@
-import { EstadosBrService } from './services/estadosBr.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormDebugComponent } from './form-debug/form-debug.component';
 import { NgModule } from '@angular/core';

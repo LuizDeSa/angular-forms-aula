@@ -1,9 +1,8 @@
+import { RadioService } from './../../shared/services/radio.service';
+import { SelectService } from './../../shared/services/select.service';
 import { Tecnologia } from './../../shared/models/tecnologia';
-import { TecnologiasService } from './../../shared/services/tecnologias.service';
 import { Cargo } from './../../shared/models/cargo';
-import { CargosService } from './../../shared/services/cargos.service';
 import { ConsultaCepService } from './../../shared/services/consulta-cep.service';
-import { EstadosBrService } from './../../shared/services/estadosBr.service';
 import { Estado } from './../../shared/models/estado';
 import { JsonPipe } from '@angular/common';
 import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
@@ -23,19 +22,21 @@ export class DataForm1Component implements OnInit {
   estados!: Observable<Estado[]>;
   cargos!: Observable<Cargo[]>;
   tecnologias!: Observable<Tecnologia[]>
+  newLatterOp!: Observable<any[]>
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpClient,
-              private estadosBrService: EstadosBrService,
               private consultaCepService: ConsultaCepService,
-              private cargosService: CargosService,
-              private tecnologiasService: TecnologiasService) { }
+              private selectService: SelectService,
+              private radioService: RadioService,
+              ) { }
 
   ngOnInit(): void {
 
-    this.estados = this.estadosBrService.getEstadosBr();
-    this.cargos = this.cargosService.getCargos();
-    this.tecnologias = this.tecnologiasService.getTecnologias();
+    this.estados = this.selectService.getEstadosBr();
+    this.cargos = this.selectService.getCargos();
+    this.tecnologias = this.selectService.getTecnologias();
+    this.newLatterOp = this.radioService.getNewLatter();
 
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
@@ -52,7 +53,8 @@ export class DataForm1Component implements OnInit {
         estado: [null, [Validators.required]],
       }),
       cargo: [null],
-      tecnologias: [null]
+      tecnologias: [null],
+      newslatter: ['s']
     });
 
   }
@@ -186,7 +188,7 @@ export class DataForm1Component implements OnInit {
 
   setarTecnologia(){
     const tecnologia = {nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl'} as Tecnologia;
-    this.formulario.get('tecnologias')?.setValue(['java', 'php']);
+    this.formulario.get('tecnologias')?.setValue(['java', 'php', 'ruby']);
   }
 
   compararCargos(cargo1: Cargo, cargo2: Cargo){
