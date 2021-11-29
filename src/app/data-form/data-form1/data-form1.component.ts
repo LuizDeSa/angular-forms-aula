@@ -54,7 +54,8 @@ export class DataForm1Component implements OnInit {
       }),
       cargo: [null],
       tecnologias: [null],
-      newslatter: ['s']
+      newslatter: ['s'],
+      termos: [null, [Validators.required, Validators.pattern('true')]]
     });
 
   }
@@ -98,6 +99,7 @@ export class DataForm1Component implements OnInit {
       console.log(campo);
       const controle = formGroup.get(campo);
       controle?.markAsDirty();
+      controle?.markAsTouched();
       if(controle instanceof FormGroup){
         this.verificarValidacoesForm(controle);
       }
@@ -114,8 +116,8 @@ export class DataForm1Component implements OnInit {
     }
   }
 
-  verificarValidAndTouchedOrDirty(campo: string){
-    return this.formulario.get(campo)?.invalid && (this.formulario.get(campo)?.touched||this.formulario.get(campo)?.dirty);
+  verificarValidAndTouchedOrDirty(campo: string): boolean{
+    return (this.formulario.get(campo)?.invalid && (this.formulario.get(campo)?.touched||this.formulario.get(campo)?.dirty))||false;
   }
 
   verificarErroCampoObrigatorio(campo: string): boolean{

@@ -114,6 +114,18 @@
   </div>
 
 
+  <div class="row mt-4">
+    <div class="col-md-3">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" [ngClass]="aplicarCssErro('termos')" type="checkbox" id="termos" value="option1" formControlName="termos">
+        <label class="form-check-label" for="inlineCheckbox1">Aceito os termos.</label>
+        <app-error-invalid-feedback [mostrarErro]="verificarValidAndTouchedOrDirty('termos')" mensagem="Por favor, aceite os termos."></app-error-invalid-feedback>
+      </div>
+
+    </div>
+  </div>
+
+
   <div class="row mt-5">
     <div class="col-12 mt-3">
       <!-- Só é interessante disabilitar caso tenhamos poucos campos e seja intuitivo a necessidade de preencher todos os campos -->
