@@ -123,6 +123,7 @@
           <label class="form-check-label" [for]="i">{{frameworks[i]}}</label>
         </div>
       </div>
+      <app-error-invalid-feedback [mostrarErro]="verificarValidAndTouchedOrDirty('frameworks')" mensagem="Por favor, escolha pelo menos 1 framework."></app-error-invalid-feedback>
     </div>
 
     <div class="col-md-3">

@@ -1,10 +1,10 @@
+import { FormValidations } from './../../shared/form-validations';
 import { RadioService } from './../../shared/services/radio.service';
 import { SelectService } from './../../shared/services/select.service';
 import { Tecnologia } from './../../shared/models/tecnologia';
 import { Cargo } from './../../shared/models/cargo';
 import { ConsultaCepService } from './../../shared/services/consulta-cep.service';
 import { Estado } from './../../shared/models/estado';
-import { JsonPipe } from '@angular/common';
 import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -64,7 +64,7 @@ export class DataForm1Component implements OnInit {
 
   buildFrameworks(): FormArray{
     const values = this.frameworks.map(v=> new FormControl(false));
-    return this.formBuilder.array(values);
+    return this.formBuilder.array(values, FormValidations.requiredMinCheckbox(1));
   }
 
   getFrameworksControls(){
