@@ -56,6 +56,7 @@
         <label for="cep" class="form-label">CEP</label>
         <input type="text" class="form-control" [ngClass]="aplicarCssErro('endereco.cep')" id="cep" formControlName="cep"  (blur)="consultarCEP()">
         <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.cep')" mensagem="CEP é um campo obrigatório."></app-error-invalid-feedback>
+        <app-error-invalid-feedback [mostrarErro]="formulario.get('endereco.cep')?.hasError('cepInvalido')||false" mensagem="CEP Invalido"></app-error-invalid-feedback>
         <!-- <app-error-invalid-tooltip class="w-100"  [mostrarErro]="verificarErroCampoObrigatorio('cep')" mensagem="Email é um campo obrigatório."></app-error-invalid-tooltip> -->
 
       </div>

@@ -1,4 +1,4 @@
-import { FormArray, Validators } from '@angular/forms';
+import { FormArray, Validators, FormControl } from '@angular/forms';
 export class FormValidations{ // pode ser um service
   static requiredMinCheckbox(min = 1){ // as validações tradicionais não servem para os forms arrays
     const validator = (formArray: FormArray) => {
@@ -18,5 +18,14 @@ export class FormValidations{ // pode ser um service
     return totalChecked >= min ? null :  {required: true};
     }
     return validator as Validators;
+  }
+
+  static cepValidator(control: FormControl){
+    const cep = control.value;
+    if(cep && cep !== ''){
+      const validacep = /^[0-9]{8}$/;
+      return validacep.test(cep) ? null : {cepInvalido : true};
+    }
+    return null;
   }
 }

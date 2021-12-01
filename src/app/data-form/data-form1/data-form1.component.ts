@@ -45,7 +45,7 @@ export class DataForm1Component implements OnInit {
       data_nascimento: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(40)]],
       endereco: this.formBuilder.group({
-        cep: [null, [Validators.required]],
+        cep: [null, [Validators.required, FormValidations.cepValidator]],
         complemento: [],
         rua: [null, [Validators.required]],
         numero: [null, [Validators.required]],
@@ -168,7 +168,7 @@ export class DataForm1Component implements OnInit {
         this.popularDadosForm(dados);
       }else{
         this.limparDadosEnderecoForm();
-        alert("Formato de CEP inválido.");
+        // alert("Formato de CEP inválido.");
       }
     });
   }
