@@ -47,6 +47,11 @@
       </select>
       <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.tecnologias')" mensagem="Tecnologia é um campo obrigatório."></app-error-invalid-feedback>
     </div>
+    <div class="col-md-8">
+      <label for="confirmarEmail" class="form-label">Confirmar email</label>
+      <input type="confirmarEmail" class="form-control w-100" [ngClass]="aplicarCssErro('confirmarEmail')" id="confirmarEmail" placeholder="usuario@email.com" formControlName="confirmarEmail">
+      <app-error-invalid-tooltip class="w-100"  [mostrarErro]="formulario.get('confirmarEmail')?.hasError('equalsTo')||false" mensagem="Emails não iguais."></app-error-invalid-tooltip>
+    </div>
   </div>
 
   <div formGroupName="endereco">
