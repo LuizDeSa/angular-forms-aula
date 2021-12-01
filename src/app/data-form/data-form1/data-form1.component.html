@@ -115,13 +115,22 @@
 
 
   <div class="row mt-4">
+    <div class="col-md-6">
+      <label for="frameworks">Frameworks</label>
+      <div id="frameworks" class="row mt-2">
+        <div class="form-check form-check-inline col-sm-3" formArrayName="frameworks" *ngFor="let item of getFrameworks().controls; let i = index">
+          <input class="form-check-input" type="checkbox" [id]="i" [formControlName] = "i">
+          <label class="form-check-label" [for]="i">{{frameworks[i]}}</label>
+        </div>
+      </div>
+    </div>
+
     <div class="col-md-3">
       <div class="form-check form-check-inline">
         <input class="form-check-input" [ngClass]="aplicarCssErro('termos')" type="checkbox" id="termos" value="option1" formControlName="termos">
-        <label class="form-check-label" for="inlineCheckbox1">Aceito os termos.</label>
+        <label class="form-check-label" for="termos">Aceito os termos.</label>
         <app-error-invalid-feedback [mostrarErro]="verificarValidAndTouchedOrDirty('termos')" mensagem="Por favor, aceite os termos."></app-error-invalid-feedback>
       </div>
-
     </div>
   </div>
 
@@ -134,6 +143,7 @@
       <button class=" ms-3 btn btn-secondary" type="button" (click)="resetar()">Cancelar</button>
       <button class=" ms-3 btn btn-danger" (click)="setarCargo()">Setar cargo</button>
       <button class=" ms-3 btn btn-dark" (click)="setarTecnologia()">Setar Tecnologia</button>
+      <button class=" ms-3 btn btn-success"  (click)="getFrameworksControls()">Get Frameworks</button>
       <app-form-debug [form] = "formulario"></app-form-debug>
     </div>
   </div>

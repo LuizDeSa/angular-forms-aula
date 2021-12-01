@@ -7,7 +7,7 @@ import { Estado } from './../../shared/models/estado';
 import { JsonPipe } from '@angular/common';
 import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -21,8 +21,9 @@ export class DataForm1Component implements OnInit {
   // estados!: Estado[];
   estados!: Observable<Estado[]>;
   cargos!: Observable<Cargo[]>;
-  tecnologias!: Observable<Tecnologia[]>
-  newLatterOp!: Observable<any[]>
+  tecnologias!: Observable<Tecnologia[]>;
+  newLatterOp!: Observable<any[]>;
+  frameworks = ['Angular', 'VueJs', 'ReactJs', 'Bootstrap', 'Spring'];
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpClient,
@@ -55,9 +56,25 @@ export class DataForm1Component implements OnInit {
       cargo: [null],
       tecnologias: [null],
       newslatter: ['s'],
-      termos: [null, [Validators.required, Validators.pattern('true')]]
+      termos: [null, [Validators.required, Validators.pattern('true')]],
+      frameworks: this.buildFrameworks()
     });
 
+  }
+
+  buildFrameworks(): FormArray{
+    const values = this.frameworks.map(v=> new FormControl(false));
+    return this.formBuilder.array(values);
+  }
+
+  getFrameworksControls(){
+    let formArray =  this.formulario.controls['frameworks'] as FormArray;
+    return formArray.controls;
+  }
+
+  getFrameworks(): FormArray{
+    let formArray =  this.formulario.controls['frameworks'] as FormArray;
+    return formArray;
   }
 
   imprimir(){
@@ -71,10 +88,19 @@ export class DataForm1Component implements OnInit {
   onSubmit(): void{
     console.log(this.formulario);
 
+    let valueSubmit = Object.assign({}, this.formulario.value);
+
+    valueSubmit = Object.assign(valueSubmit, {
+      frameworks: valueSubmit.frameworks.map((v:any, i:any)=> v ? this.frameworks[i] : null).filter((v:any) => v !== null)
+    });
+
+    console.log(valueSubmit);
+
+
     if(this.formulario.valid){
 
       //site https://resttesttest.com/
-      this.http.post<HttpResponse<string>>('https://httpbin.org/post', JSON.stringify(this.formulario.value)).subscribe(
+      this.http.post<HttpResponse<string>>('https://httpbin.org/post', JSON.stringify(valueSubmit)).subscribe(
         dados => {
           console.log(dados);
 
@@ -96,7 +122,7 @@ export class DataForm1Component implements OnInit {
 
   verificarValidacoesForm(formGroup: FormGroup){
     Object.keys(formGroup.controls).forEach(campo => {
-      console.log(campo);
+      // console.log(campo);
       const controle = formGroup.get(campo);
       controle?.markAsDirty();
       controle?.markAsTouched();
