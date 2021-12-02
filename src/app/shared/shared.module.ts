@@ -1,3 +1,4 @@
+import { FormValidTooltipComponent } from './form-valid-tooltip/form-valid-tooltip.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormDebugComponent } from './form-debug/form-debug.component';
 import { NgModule } from '@angular/core';
@@ -12,6 +13,7 @@ import { ErrorInvalidTooltipComponent } from './error-invalid-tooltip/error-inva
     FormDebugComponent,
     ErrorInvalidFeedbackComponent,
     ErrorInvalidTooltipComponent,
+    FormValidTooltipComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { ErrorInvalidTooltipComponent } from './error-invalid-tooltip/error-inva
   exports: [
     FormDebugComponent,
     ErrorInvalidFeedbackComponent,
-    ErrorInvalidTooltipComponent
+    ErrorInvalidTooltipComponent,
+    FormValidTooltipComponent
   ],
   providers:[
   ]

@@ -38,6 +38,10 @@
       <label for="email" class="form-label">Email</label>
       <input type="email" class="form-control w-100" [ngClass]="aplicarCssErro('email')" id="email" placeholder="usuario@email.com" formControlName="email">
       <app-error-invalid-tooltip class="w-100"  [mostrarErro]="verificarErroCampoObrigatorio('email')" mensagem="Email é um campo obrigatório."></app-error-invalid-tooltip>
+      <app-error-invalid-tooltip class="w-100"  [mostrarErro]="formulario.get('email')?.status ==='PENDING'" mensagem="Validando email ...."></app-error-invalid-tooltip>
+      <app-form-valid-tooltip class="w-100"  [mostrarSucesso]="formulario.get('email')?.status ==='VALID'" mensagem="Email valido ..."></app-form-valid-tooltip>
+      <app-error-invalid-tooltip class="w-100"  [mostrarErro]="formulario.get('email')?.status ==='INVALID'" mensagem="Email invalido ..."></app-error-invalid-tooltip>
+      <app-error-invalid-tooltip class="w-100"  [mostrarErro]="formulario.get('email')?.hasError('emailJaCadastrado') || false" mensagem="Email ja cadastrado ..."></app-error-invalid-tooltip>
     </div>
     <div class="col-md-4">
       <label for="tecnologias" class="form-label">Tecnologias</label>

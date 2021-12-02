@@ -1,3 +1,4 @@
+import { VerificaEmailService } from './../services/verifica-email.service';
 import { FormValidations } from './../../shared/form-validations';
 import { RadioService } from './../../shared/services/radio.service';
 import { SelectService } from './../../shared/services/select.service';
@@ -9,6 +10,7 @@ import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-data-form1',
@@ -30,9 +32,12 @@ export class DataForm1Component implements OnInit {
               private consultaCepService: ConsultaCepService,
               private selectService: SelectService,
               private radioService: RadioService,
+              private verificaEmailService: VerificaEmailService
               ) { }
 
   ngOnInit(): void {
+
+    this.verificaEmailService.verificarEmail('email@email.com').subscribe(); //verificar no dev tolls seção network
 
     this.estados = this.selectService.getEstadosBr();
     this.cargos = this.selectService.getCargos();
@@ -43,7 +48,7 @@ export class DataForm1Component implements OnInit {
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       sobrenome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
       data_nascimento: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(40)]],
+      email: [null, [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(40)], [this.validarEmail.bind(this)]],
       confirmarEmail: [null, [FormValidations.equalsTo('email')]],
       endereco: this.formBuilder.group({
         cep: [null, [Validators.required, FormValidations.cepValidator]],
@@ -227,4 +232,10 @@ export class DataForm1Component implements OnInit {
   compararTecnologias(tecnologia1: Tecnologia, tecnologia2: Tecnologia){
     return tecnologia1 && tecnologia1 ? (tecnologia1.nome===tecnologia1.nome && tecnologia1.desc===tecnologia1.desc): tecnologia1 === tecnologia1;
   }
+
+  validarEmail(formControl: FormControl){
+    return this.verificaEmailService.verificarEmail(formControl.value)
+      .pipe(map(emailExiste => emailExiste ? {emailJaCadastrado: true} : null));
+  }
+
 }
