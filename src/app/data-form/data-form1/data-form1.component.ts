@@ -9,8 +9,8 @@ import { Estado } from './../../shared/models/estado';
 import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { empty, Observable, of } from 'rxjs';
+import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-data-form1',
@@ -65,6 +65,22 @@ export class DataForm1Component implements OnInit {
       termos: [null, [Validators.required, Validators.pattern('true')]],
       frameworks: this.buildFrameworks()
     });
+
+    //reagindo a mudanças reativamente
+    // this.formulario.get('endereco.cep')?.valueChanges
+    //   .subscribe(value => console.log('valor CEP: ', value));
+
+    //reagindo a mudanças reativamente
+    this.formulario.get('endereco.cep')?.statusChanges
+      .pipe(
+        distinctUntilChanged(),
+        tap(value => console.log('status CEP: ', value)),
+        switchMap(status => status==='VALID'?
+          this.consultaCepService.consultarCEP(this.formulario.get('endereco.cep')?.value)
+          :of()
+        )
+      )
+      .subscribe(dados=> dados ? this.popularDadosForm (dados): this.limparDadosEnderecoForm());
 
   }
 

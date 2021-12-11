@@ -54,7 +54,8 @@
 
       <div class="col-md-3">
         <label for="cep" class="form-label">CEP</label>
-        <input type="text" class="form-control" [ngClass]="aplicarCssErro('endereco.cep')" id="cep" formControlName="cep"  (blur)="consultarCEP()">
+        <!-- <input type="text" class="form-control" [ngClass]="aplicarCssErro('endereco.cep')" id="cep" formControlName="cep"  (blur)="consultarCEP()"> -->
+        <input type="text" class="form-control" [ngClass]="aplicarCssErro('endereco.cep')" id="cep" formControlName="cep">
         <app-error-msg2 class="w-100" [control]="getFormControl('endereco.cep')" label="CEP" ></app-error-msg2>
       </div>
 
