@@ -48,7 +48,7 @@ export class DataForm1Component implements OnInit {
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       sobrenome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
       data_nascimento: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(40)], [this.validarEmail.bind(this)]],
+      email: [null, [Validators.required, Validators.email], [this.validarEmail.bind(this)]],
       confirmarEmail: [null, [FormValidations.equalsTo('email')]],
       endereco: this.formBuilder.group({
         cep: [null, [Validators.required, FormValidations.cepValidator]],
@@ -59,14 +59,20 @@ export class DataForm1Component implements OnInit {
         cidade: [null, [Validators.required]],
         estado: [null, [Validators.required]],
       }),
-      cargo: [null],
-      tecnologias: [null],
+      cargo: [null, [Validators.required]],
+      tecnologias: [null, [Validators.required]],
       newslatter: ['s'],
       termos: [null, [Validators.required, Validators.pattern('true')]],
       frameworks: this.buildFrameworks()
     });
 
   }
+
+
+  getFormControl(controlName: string): FormControl{
+    return (<FormControl>this.formulario.get(controlName));
+  }
+
 
   buildFrameworks(): FormArray{
     const values = this.frameworks.map(v=> new FormControl(false));

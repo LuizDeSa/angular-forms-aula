@@ -22,10 +22,12 @@ export class FormValidations{ // pode ser um service
   }
 
   static cepValidator(control: FormControl){ // Aqui estamos passando o controle
-    const cep = control.value;
+    let cep = control.value;
+    // cep = cep.replace(/\D/g, '');
     if(cep && cep !== ''){
-      const validacep = /^[0-9]{8}$/;
-      return validacep.test(cep) ? null : {cepInvalido : true};
+      const validacep1 = /^[0-9]{8}$/;
+      const validacep2 = /^[0-9]{5}-[0-9]{3}$/;
+      return (validacep1.test(cep)||validacep2.test(cep) )? null : {cepInvalido : true};
     }
     return null;
   }
@@ -52,5 +54,24 @@ export class FormValidations{ // pode ser um service
       return null;
     };
     return validator;
+  }
+
+  static getErrorMsg(fieldName: string, validatorName: string, validatorValue?: any): string{
+    console.log('validatorName: '+validatorName);
+    console.log('validatorValue: '+validatorValue);
+    const config: any = {
+      'required': `${fieldName} é obrigatório(a).`,
+      'minlength' : `${fieldName} precisa ter no mínimo ${validatorValue.requiredLength} caracteres.`,
+      'maxlength' : `${fieldName} precisa ter no máximo ${validatorValue.requiredLength} caracteres.`,
+      'cepInvalido' : `CEP invalido.`,
+      'emailJaCadastrado': `Email já cadastrado.`,
+      'email': `Email invalido.`,
+      'equalsTo' : `${fieldName} não são iguais.`
+
+      // 'equalsTo' : `${fieldName} é obrigatório.`,
+      // '' : ``,
+      // '' : ``,
+    }
+    return config[validatorName];
   }
 }

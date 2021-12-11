@@ -3,25 +3,19 @@
     <div class="col-md-3">
       <label for="nome" class="form-label">Nome</label>
       <input type="text" class="form-control" [ngClass]="aplicarCssErro('nome')" id="nome" placeholder="Nome" formControlName="nome">
-
-      <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('nome')" mensagem="Nome é um campo obrigatório."></app-error-invalid-feedback>
-      <app-error-invalid-feedback [mostrarErro]="verificarErroMinLength('nome')" mensagem="Nome deve ter 3 ou mais caracter"></app-error-invalid-feedback>
-      <app-error-invalid-feedback [mostrarErro]="verificarErroMaxLength('nome')" mensagem="Nome deve ter 20 ou menos caracter"></app-error-invalid-feedback>
+      <app-error-msg class="w-100" [control]="getFormControl('nome')" label="Nome" ></app-error-msg>
     </div>
 
     <div class="col-md-5">
       <label for="sobrenome" class="form-label">Sobrenome</label>
       <input type="text" class="form-control" [ngClass]="aplicarCssErro('sobrenome')" id="sobrenome" placeholder="Sobrenome" formControlName="sobrenome" >
-
-      <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('sobrenome')" mensagem="Sobrenome é um campo obrigatório."></app-error-invalid-feedback>
-      <app-error-invalid-feedback [mostrarErro]="verificarErroMinLength('sobrenome')" mensagem="Sobrenome deve ter 3 ou mais caracter"></app-error-invalid-feedback>
-      <app-error-invalid-feedback [mostrarErro]="verificarErroMaxLength('sobrenome')" mensagem="Sobrenome deve ter 40 ou menos caracter"></app-error-invalid-feedback>
+      <app-error-msg class="w-100" [control]="getFormControl('sobrenome')" label="Sobrenome" ></app-error-msg>
     </div>
 
     <div class="col-md-2">
       <label for="dt_nasc" class="form-label">Data de Nascimento</label>
       <input type="date" class="form-control" [ngClass]="aplicarCssErro('data_nascimento')" id="dt_nasc" formControlName="data_nascimento" >
-      <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('data_nascimento')" mensagem="Data de nascimento é um campo obrigatório."></app-error-invalid-feedback>
+      <app-error-msg class="w-100" [control]="getFormControl('data_nascimento')" label="Data de nascimento" ></app-error-msg>
     </div>
     <div class="col-md-2">
       <label for="cargo" class="form-label">Cargo</label>
@@ -29,7 +23,7 @@
           <option selected disabled value="">Escolha um cargo...</option>
           <option *ngFor="let cargo of cargos | async" [ngValue]="cargo" >{{cargo.desc}}</option> <!-- NgValue -> utilizar objetos-->
       </select>
-      <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.cargo')" mensagem="Cargo é um campo obrigatório."></app-error-invalid-feedback>
+      <app-error-msg class="w-100" [control]="getFormControl('cargo')" label="Cargo" ></app-error-msg>
     </div>
   </div>
 
@@ -37,11 +31,7 @@
     <div class="col-md-8">
       <label for="email" class="form-label">Email</label>
       <input type="email" class="form-control w-100" [ngClass]="aplicarCssErro('email')" id="email" placeholder="usuario@email.com" formControlName="email">
-      <app-error-invalid-tooltip class="w-100"  [mostrarErro]="verificarErroCampoObrigatorio('email')" mensagem="Email é um campo obrigatório."></app-error-invalid-tooltip>
-      <app-error-invalid-tooltip class="w-100"  [mostrarErro]="formulario.get('email')?.status ==='PENDING'" mensagem="Validando email ...."></app-error-invalid-tooltip>
-      <app-form-valid-tooltip class="w-100"  [mostrarSucesso]="formulario.get('email')?.status ==='VALID'" mensagem="Email valido ..."></app-form-valid-tooltip>
-      <app-error-invalid-tooltip class="w-100"  [mostrarErro]="formulario.get('email')?.status ==='INVALID'" mensagem="Email invalido ..."></app-error-invalid-tooltip>
-      <app-error-invalid-tooltip class="w-100"  [mostrarErro]="formulario.get('email')?.hasError('emailJaCadastrado') || false" mensagem="Email ja cadastrado ..."></app-error-invalid-tooltip>
+      <app-error-msg class="w-100" [control]="getFormControl('email')" label="Email" ></app-error-msg>
     </div>
     <div class="col-md-4">
       <label for="tecnologias" class="form-label">Tecnologias</label>
@@ -49,12 +39,13 @@
           <option selected disabled value="">Escolha uma tecnologias...</option>
           <option *ngFor="let tecnologia of tecnologias | async" [value]="tecnologia.nome" >{{tecnologia.desc}}</option> <!-- NgValue -> utilizar objetos-->
       </select>
-      <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.tecnologias')" mensagem="Tecnologia é um campo obrigatório."></app-error-invalid-feedback>
+      <app-error-msg class="w-100" [control]="getFormControl('tecnologias')" label="Tecnologia" ></app-error-msg>
     </div>
     <div class="col-md-8">
       <label for="confirmarEmail" class="form-label">Confirmar email</label>
       <input type="confirmarEmail" class="form-control w-100" [ngClass]="aplicarCssErro('confirmarEmail')" id="confirmarEmail" placeholder="usuario@email.com" formControlName="confirmarEmail">
-      <app-error-invalid-tooltip class="w-100"  [mostrarErro]="formulario.get('confirmarEmail')?.hasError('equalsTo')||false" mensagem="Emails não iguais."></app-error-invalid-tooltip>
+      <app-error-msg class="w-100" [control]="getFormControl('confirmarEmail')" label="Emails" ></app-error-msg>
+
     </div>
   </div>
 
@@ -64,31 +55,30 @@
       <div class="col-md-3">
         <label for="cep" class="form-label">CEP</label>
         <input type="text" class="form-control" [ngClass]="aplicarCssErro('endereco.cep')" id="cep" formControlName="cep"  (blur)="consultarCEP()">
-        <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.cep')" mensagem="CEP é um campo obrigatório."></app-error-invalid-feedback>
-        <app-error-invalid-feedback [mostrarErro]="formulario.get('endereco.cep')?.hasError('cepInvalido')||false" mensagem="CEP Invalido"></app-error-invalid-feedback>
-        <!-- <app-error-invalid-tooltip class="w-100"  [mostrarErro]="verificarErroCampoObrigatorio('cep')" mensagem="Email é um campo obrigatório."></app-error-invalid-tooltip> -->
-
+        <app-error-msg2 class="w-100" [control]="getFormControl('endereco.cep')" label="CEP" ></app-error-msg2>
       </div>
 
       <div class="col-md-3">
         <label for="estado" class="form-label">Estado</label>
         <select class="form-select" [ngClass]="aplicarCssErro('endereco.estado')" id="estado" formControlName="estado">
-          <option selected disabled value="">Escolha um estado...</option>
+          <option selected disabled value="Sem escolha">Escolha um estado...</option>
           <option *ngFor="let estado of estados | async" [value]="estado.sigla" >{{estado.nome}}</option> <!-- value -> string e valores simples-->
         </select>
-        <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.estado')" mensagem="Estado é um campo obrigatório."></app-error-invalid-feedback>
+        <app-error-msg2 class="w-100" [control]="getFormControl('endereco.estado')" label="Estado" ></app-error-msg2>
+
       </div>
 
       <div class="col-md-4">
         <label for="cidade" class="form-label">Cidade</label>
         <input type="text" class="form-control" [ngClass]="aplicarCssErro('endereco.cidade')" id="cidade" placeholder="Cidade" formControlName="cidade">
-        <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.cidade')" mensagem="Cidade é um campo obrigatório."></app-error-invalid-feedback>
+        <app-error-msg2 class="w-100" [control]="getFormControl('endereco.cidade')" label="Cidade" ></app-error-msg2>
       </div>
 
       <div class="col-md-2" >
         <label for="numero" class="form-label">Número</label>
         <input type="text" class="form-control" [ngClass]="aplicarCssErro('endereco.numero')" id="numero" placeholder="Número" formControlName="numero">
-        <app-error-invalid-tooltip class="w-100"  [mostrarErro]="verificarErroCampoObrigatorio('endereco.numero')" mensagem="Numero é um campo obrigatório."></app-error-invalid-tooltip>
+        <app-error-msg2 class="w-100" [control]="getFormControl('endereco.numero')" label="Numero" ></app-error-msg2>
+
       </div>
 
     </div>
@@ -97,12 +87,13 @@
       <div class="col-md-5">
         <label for="rua" class="form-label">Rua</label>
         <input type="text" class="form-control"  [ngClass]="aplicarCssErro('endereco.rua')" id="rua" placeholder="Rua" formControlName="rua">
-        <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.rua')" mensagem="Rua é um campo obrigatório."></app-error-invalid-feedback>
+        <app-error-msg2 class="w-100" [control]="getFormControl('endereco.rua')" label="Rua" ></app-error-msg2>
       </div>
       <div class="col-md-3">
         <label for="bairro" class="form-label">Bairro</label>
-        <input type="text" class="form-control" [ngClass]="aplicarCssErro('endereco.bairro')" id="bairro" placeholder="bairro" formControlName="bairro">
-        <app-error-invalid-feedback [mostrarErro]="verificarErroCampoObrigatorio('endereco.bairro')" mensagem="Bairro é um campo obrigatório."></app-error-invalid-feedback>
+        <input type="text" class="form-control" [ngClass]="aplicarCssErro('endereco.bairro')" id="bairro" placeholder="Bairro" formControlName="bairro">
+        <app-error-msg2 class="w-100" [control]="getFormControl('endereco.bairro')" label="Bairro" ></app-error-msg2>
+
       </div>
       <div class="col-md-4">
         <label for="complemento" class="form-label">Complemento</label>
@@ -133,14 +124,14 @@
           <label class="form-check-label" [for]="i">{{frameworks[i]}}</label>
         </div>
       </div>
-      <app-error-invalid-feedback [mostrarErro]="verificarValidAndTouchedOrDirty('frameworks')" mensagem="Por favor, escolha pelo menos 1 framework."></app-error-invalid-feedback>
+      <app-error-msg2 class="w-100" [control]="getFormControl('frameworks')" label="A escolha de pelo menos 1 framework" ></app-error-msg2>
     </div>
 
     <div class="col-md-3">
       <div class="form-check form-check-inline">
         <input class="form-check-input" [ngClass]="aplicarCssErro('termos')" type="checkbox" id="termos" value="option1" formControlName="termos">
         <label class="form-check-label" for="termos">Aceito os termos.</label>
-        <app-error-invalid-feedback [mostrarErro]="verificarValidAndTouchedOrDirty('termos')" mensagem="Por favor, aceite os termos."></app-error-invalid-feedback>
+        <app-error-msg2 class="w-100" [control]="getFormControl('termos')" label="A aceitação dos termos" ></app-error-msg2>
       </div>
     </div>
   </div>

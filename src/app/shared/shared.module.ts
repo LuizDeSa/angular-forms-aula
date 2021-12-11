@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ErrorInvalidFeedbackComponent } from './error-invalid-feedback/error-invalid-feedback.component';
 import { ErrorInvalidTooltipComponent } from './error-invalid-tooltip/error-invalid-tooltip.component';
+import { ErrorMsgComponent } from './error-msg/error-msg.component';
+import { ErrorMsg2Component } from './error-msg2/error-msg2.component';
 
 
 
@@ -13,7 +15,9 @@ import { ErrorInvalidTooltipComponent } from './error-invalid-tooltip/error-inva
     FormDebugComponent,
     ErrorInvalidFeedbackComponent,
     ErrorInvalidTooltipComponent,
-    FormValidTooltipComponent
+    FormValidTooltipComponent,
+    ErrorMsgComponent,
+    ErrorMsg2Component
   ],
   imports: [
     CommonModule,
@@ -23,7 +27,9 @@ import { ErrorInvalidTooltipComponent } from './error-invalid-tooltip/error-inva
     FormDebugComponent,
     ErrorInvalidFeedbackComponent,
     ErrorInvalidTooltipComponent,
-    FormValidTooltipComponent
+    FormValidTooltipComponent,
+    ErrorMsgComponent,
+    ErrorMsg2Component,
   ],
   providers:[
   ]
